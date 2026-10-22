@@ -147,6 +147,12 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .add{display:block;width:100%;text-align:left;padding:12px 14px;border-top:1px solid var(--line);font-weight:600;color:var(--accent)}
 .elab{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .slot{padding:4px 0;font-weight:600;color:var(--accent)}
+
+.howbtn{font-size:13px;font-weight:600;color:var(--accent);padding:4px 0;justify-self:start}
+.how{background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:14px;display:grid;gap:6px}
+.how ol{margin:0;padding-left:18px}
+.how li{margin:2px 0}
+.how a{color:var(--accent);font-weight:600}
 </style>
 </head>
 <body>
@@ -480,6 +486,63 @@ function rules(){
 }
 const resetBtn = () => `<button class="btn" data-resetplan="1" style="margin-top:6px">Reset everything to the original plan</button>`;
 
+
+const HOW = {
+'quad-sets':['Sit or lie with your leg straight.','Squeeze the thigh muscle hard so the kneecap pulls up and the back of the knee presses down.','Hold 5 seconds, relax. Rest between reps.'],
+'straight-leg-raise':['Lie on your back, bad leg straight, other knee bent with foot flat.','Squeeze your thigh first so the knee locks straight.','Lift the straight leg to the height of the other knee. Hold 1 sec, lower slowly.'],
+'cable-terminal-knee-extension':['Set the cable low. Loop a strap or rope behind the hurt knee and face the machine.','Start with the knee slightly bent, foot flat.','Squeeze the thigh and push the knee fully straight, then ease back. Stay slow.'],
+'heel-slides':['Lie on your back with legs straight.','Slide the heel of the hurt leg toward your butt, bending the knee as far as is comfortable.','Slide it back out straight. No forcing.'],
+'stationary-bike-easy':['Raise the seat so your leg is almost straight at the bottom.','Pedal light, no resistance, 5 to 8 minutes.','If a full turn hurts, rock the pedals back and forth instead.'],
+'stationary-bike-steady':['Seat high, light-to-moderate resistance.','Keep a pace where you can still talk.','Stop if the knee hurts or swells.'],
+'barbell-bench-press':['Lie on the bench with your eyes under the bar. Feet flat on the floor, shoulder blades pinched together.','Grip a bit wider than shoulders. Unrack and lower the bar to your mid-chest.','Press up. Use the safety bars in the rack, or have a spotter.'],
+'incline-db-press':['Set the bench to a low incline (about 30 degrees).','Hold dumbbells at chest height, palms forward, elbows about 45 degrees from your body.','Press up until arms are straight, then lower slowly.'],
+'seated-db-shoulder-press':['Sit on an upright bench, back supported, feet flat.','Start with dumbbells at shoulder height, palms forward.','Press straight up, then lower to ear level.'],
+'cable-fly':['Set both pulleys at chest height. Stand in the middle with a handle in each hand, one foot slightly forward.','With a small bend in the elbows, bring your hands together in front of your chest in a hugging motion.','Open back up slowly until you feel a stretch in the chest.'],
+'cable-lateral-raise':['Set the pulley low. Stand sideways with the handle in the far hand.','With a slight bend in the elbow, raise your arm out to the side to shoulder height.','Lower slowly. Keep your body still.'],
+'rope-pushdown':['Attach the rope at the high pulley.','Elbows pinned to your sides, push the rope down until your arms are straight and split the ends apart.','Let your hands come back up to chest height, elbows staying put.'],
+'overhead-cable-triceps-extension':['Set the pulley high with a rope. Face away, hold the rope behind your head with elbows pointing forward.','Straighten your arms out in front of you.','Bend slowly back. Keep elbows from flaring.'],
+'plank':['Forearms on the floor, elbows under shoulders, legs straight behind you on your toes.','Keep a straight line from head to heels. Squeeze your abs and glutes.','Hold. Stop if your lower back sags.'],
+'seated-cable-pulldown':['Sit under the high pulley with thighs pinned under the pad, or brace on a bench. Grab the bar a little wider than shoulders.','Lean back slightly, pull the bar to your upper chest, squeezing shoulder blades down and back.','Let the bar go back up slowly with arms fully stretched.'],
+'seated-cable-row':['Sit at the low pulley, feet braced, knees slightly bent.','With a tall chest, pull the handle to your belly button, squeezing shoulder blades together.','Let your arms stretch out slowly. Do not rock your back.'],
+'chest-supported-db-row':['Set a bench to a low incline and lie chest-down on it, dumbbells hanging.','Pull both dumbbells up toward your hips, elbows close to the body.','Squeeze at the top, lower slowly.'],
+'straight-arm-cable-pulldown':['Set the pulley high with a bar or rope. Step back, hinge slightly forward, arms straight.','Keeping arms nearly straight, push the bar down in an arc to your thighs.','Let it rise back slowly until you feel your lats stretch.'],
+'face-pull':['Set the cable at face height with a rope.','Pull the rope toward your face, spreading the ends apart, elbows high.','Squeeze your upper back, then return slowly. Keep the weight light.'],
+'seated-incline-db-curl':['Sit back on a bench set at about 60 degrees, arms hanging straight down with dumbbells.','Curl the weights up without moving your upper arms.','Lower all the way to a full stretch.'],
+'hammer-curl':['Stand or sit holding dumbbells with palms facing each other.','Curl up keeping palms facing in, elbows at your sides.','Lower slowly.'],
+'dead-bug':['Lie on your back, arms up toward the ceiling, hips and knees at 90 degrees.','Press your low back into the floor. Slowly lower the opposite arm and leg toward the floor.','Come back and switch sides. Keep your back flat the whole time.'],
+'barbell-hip-thrust':['Sit on the floor with your upper back against the side of a bench. Roll a padded barbell over your hips.','Feet flat, shins vertical at the top. Drive through your heels and lift your hips until your body is flat from shoulders to knees.','Squeeze your glutes at the top, lower under control. Keep your chin tucked.'],
+'single-leg-leg-press-good-leg':['Sit in the leg press and put one foot (the good leg) in the middle of the platform. The other foot stays off the platform.','Lower the platform until your knee is about 90 degrees. Do not go deeper.','Press back up without locking the knee hard.'],
+'hamstring-curl':['Set up on the hamstring curl machine and line your knees up with the pivot.','Curl the pad toward your butt, squeeze, then lower slowly.','Use light weight on the hurt leg and stay pain-free.'],
+'single-leg-quad-extension-good-leg':['Sit in the machine, pad on your lower shin, good leg only.','Straighten the knee, squeeze the quad for a second.','Lower slowly. Skip the hurt leg until your PT says it is OK.'],
+'cable-straight-leg-kickback-hurt-leg':['Strap the cable to your ankle at the lowest pulley. Hold the frame and stand on your good leg.','Keep the working leg straight and kick back, squeezing the glute.','Return slowly. Do not arch your lower back.'],
+'side-lying-leg-raise':['Lie on your side, bottom knee bent for balance, top leg straight.','Raise the top leg to about 45 degrees, toes pointing forward.','Lower slowly.'],
+'seated-db-calf-raise':['Sit on a bench with feet flat, a dumbbell on each thigh near the knees.','Raise your heels as high as you can.','Pause, then lower slowly.'],
+'cable-pallof-press':['Set the cable at chest height. Stand sideways to it, handle at your chest, feet shoulder width.','Press the handle straight out and hold while the cable tries to pull you sideways.','Bring it back in. Do not twist.'],
+'side-plank':['Lie on your side with your elbow under your shoulder and legs straight, feet stacked.','Lift your hips so your body makes a straight line.','Hold. If it is too hard, bend your bottom knee.'],
+'seated-db-arnold-press':['Sit on an upright bench with dumbbells in front of your chest, palms facing you.','As you press up, rotate your palms to face forward.','Reverse the move on the way down.'],
+'bench-press-machine':['Adjust the seat so the handles are at mid-chest height.','Press forward until your arms are straight without locking hard.','Return slowly until you feel a stretch in the chest.'],
+'single-arm-cable-row':['Set the pulley at chest height, stand or sit tall facing it.','Pull the handle to your ribs, elbow close, squeezing the back.','Return slowly. Keep your torso still.'],
+'rear-delt-cable-fly':['Set both pulleys high and cross the cables, one handle in each hand. Or lie chest-down on an incline bench with light dumbbells.','With a slight bend in the elbows, pull your arms out and back to shoulder height.','Return slowly.'],
+'cable-bar-curl':['Attach a straight or EZ bar to the low pulley and stand tall.','Curl the bar up with elbows tucked at your sides.','Lower slowly.'],
+'db-skull-crusher':['Lie on a flat bench holding dumbbells over your chest, palms facing each other.','Bend only at the elbows to lower the weights toward your temples.','Straighten the arms back up.'],
+'seated-med-ball-chest-pass':['Sit on a bench facing a wall, ball at your chest.','Push the ball hard straight at the wall.','Catch it on the rebound and reset.'],
+'ab-roller':['Kneel on a pad with the wheel in front of you.','Roll forward slowly as far as you can with a flat back and tight abs.','Pull back using your abs, not your hips. If kneeling hurts the hurt knee, plank instead.'],
+'seated-med-ball-twist':['Sit tall on a bench or the floor, feet flat, holding the ball at your chest.','Rotate your shoulders to one side, then the other, with feet staying planted.','Keep your knees still.'],
+'seated-hamstring-stretch':['Sit with the hurt leg straight on the bench.','Keep your back flat and reach toward your toes.','Hold 30 seconds, easy pull, no pain.'],
+'standing-hip-flexor-stretch':['Stand and take a long step forward with the other foot, back leg straight.','Tuck your pelvis and lean slightly forward until you feel the front of the hip stretch.','Hold 30 seconds. No kneeling.'],
+'calf-stretch-on-wall':['Stand facing a wall, hands on it, one leg back straight with heel on the ground.','Lean in until you feel the calf stretch.','Hold 30 seconds.'],
+'walk':['Walk on flat ground at an easy pace.','Aim for a smooth heel-to-toe step with a straight knee.','Stop if the knee swells or hurts.'],
+'heel-prop':['Sit or lie down and put your heel on a rolled towel so the knee hangs in the air.','Relax the thigh and let gravity straighten the knee.','Stay for the full time. It should feel like a stretch, not sharp pain.'],
+'ice-elevate':['Lie down with the knee above heart level.','Put a cold pack on the knee with a cloth in between.','Leave it for 15 minutes.'],
+};
+const howKey = n => n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const openHow = {};
+function howHtml(e){
+  const steps = HOW[howKey(e.n)];
+  const q = encodeURIComponent(e.n.replace(/\(.*?\)/g,'').trim()+' how to');
+  return `<div class="how">${steps?`<ol>${steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`:''}<a href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Watch a video of this</a></div>`;
+}
+
 /* ---------- Workout ---------- */
 function renderLift(){
   const t=now0(), ti=t.getDay(), d=doc(iso(t)), w=W(viewDay);
@@ -497,6 +560,7 @@ function renderLift(){
       const n=Math.min(d.sets[e.id]||0,e.s);
       h += `<div class="ex${n===e.s?' all':''}"><div class="ex-top"><span class="n">${esc(e.n)}</span><span class="r num">${e.s>1?e.s+' × ':''}${esc(e.r)}</span></div>
         ${e.tip?`<div class="tip">${esc(e.tip)}</div>`:''}
+        <button class="howbtn" data-how="${e.id}">${openHow[e.id]?'Hide':'How to do it'}</button>${openHow[e.id]?howHtml(e):''}
         <div class="ex-bot"><div class="sets">${Array.from({length:e.s},(_,i)=>`<button class="set${i<n?' d':''}" data-set="${e.id}" data-i="${i}" aria-label="Set ${i+1}">${e.s>1?i+1:'✓'}</button>`).join('')}</div>
         ${e.w?`<label class="wt">lb <input id="wt-${e.id}" inputmode="decimal" data-wt="${e.id}" value="${esc(d.wt[e.id]||'')}" placeholder="–"></label>`:''}</div></div>`;
     });
@@ -610,6 +674,7 @@ app.addEventListener('click',e=>{
       Object.keys(all).forEach(k=>{ if(k.startsWith('prehab:')) localStorage.setItem(k,all[k]) }); location.reload() }
     catch(_){ msg.textContent='That doesn\'t look like a Prehab backup. Copy the whole thing starting with PREHAB1:' }
     return }
+  if((b=q('[data-how]'))){ const id=b.dataset.how; openHow[id]=!openHow[id]; render(); return }
   if(editing) return;
   if((b=q('[data-open]'))){ e.stopPropagation(); tab='lift'; viewDay=now0().getDay(); render(); window.scrollTo(0,0); return }
   if((b=q('[data-check]'))){ const id=b.dataset.check, key=tab==='prep'?'prep':k, d=doc(key); d.c[id]=!d.c[id]; save(key); render(); return }
